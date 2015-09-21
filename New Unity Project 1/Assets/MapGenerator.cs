@@ -56,9 +56,16 @@ public class MapGenerator : MonoBehaviour {
 	{
 		for (int x = 0; x < width; x ++) {
 			for (int y = 0; y < height; y ++) {
+				int neighbourWallTiles = GetSurroundingWallCount(x,y);
+			
+				if (neighbourWallTiles > 4)
+					map[x,y} = 1;
+					    else if (neighbourWallTiles < 4)
+					    map[x,y] = 0;
+					    }
 			}
-		}
-	}
+		
+	
 	int GetSurroundingWallCount(int gridX, int gridY)
 	{
 		int wallCount = 0;
@@ -72,14 +79,23 @@ public class MapGenerator : MonoBehaviour {
 				
 					wallCount += map[neighbourX,neighbourY];
 				}
+				else
+				{
+					wallCount ++:
+				}
 		}
-	}
+						}
+						return wallCount;
+					    }
+
+					   
+	
 
 	void OnDrawGizmos()
 	{
 
 	
-		{
+		
 			if (map != null) {
 				for (int x = 0; x < width; x ++) {
 				
@@ -94,4 +110,5 @@ public class MapGenerator : MonoBehaviour {
 		}
 	}
                  
-	}
+	
+					   
