@@ -8,7 +8,12 @@ public class MeshGenerator : MonoBehaviour {
 		public Node centreTop, centreRight, centerBottom, centreLeft;
 
 		public Square (ControlNode _topLeft, ControlNode _topRight, ControlNode _bottomRight, ControlNode _bottomLeft) {
-		public
+			topLeft = _topLeft;
+				topRight = _topRight;
+					bottomRight = _bottomRight;
+		
+					bottomLeft = _bottomLeft;
+	
 	public class Node {
 		public Vector3 position;
 		public int vertexIndex = -1;
