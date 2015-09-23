@@ -20,6 +20,13 @@ public class MapGenerator : MonoBehaviour {
 	       {
 		GenerateMap();
 	}
+
+	void Update()
+	{
+		if (Input.GetMouseButtonDown (0)) {
+			GenerateMap ();
+		}
+	}
 	void GenerateMap()
 	{
 		map = new int[width,height];
@@ -56,22 +63,23 @@ public class MapGenerator : MonoBehaviour {
 	{
 		for (int x = 0; x < width; x ++) {
 			for (int y = 0; y < height; y ++) {
-				int neighbourWallTiles = GetSurroundingWallCount(x,y);
+				int neighbourWallTiles = GetSurroundingWallCount (x, y);
 			
 				if (neighbourWallTiles > 4)
-					map[x,y} = 1;
-					    else if (neighbourWallTiles < 4)
-					    map[x,y] = 0;
-					    }
+					map [x, y] = 1;
+				else if (neighbourWallTiles < 4)
+					map [x, y] = 0;
 			}
+		}
+	}
 		
 	
-	int GetSurroundingWallCount(int gridX, int gridY)
-	{
+		int GetSurroundingWallCount(int gridX, int gridY) 
+		{
 		int wallCount = 0;
 		for (int neighbourX = gridX - 1; neighbourX <= gridX + 1; neighbourX ++) {
 			for (int neighbourY = gridY - 1; neighbourY <= gridY + 1; neighbourY ++) {
-				if (neighbourX >= 0 && neighbourX <width && neighbourY >=0 && neighbourY < height)
+				if (neighbourX >= 0 && neighbourX <width && neighbourY >= 0 && neighbourY < height)
 				{
 
 				}
@@ -81,12 +89,14 @@ public class MapGenerator : MonoBehaviour {
 				}
 				else
 				{
-					wallCount ++:
+						wallCount ++;
 				}
 		}
 						}
+		
 						return wallCount;
 					    }
+	
 
 					   
 	
@@ -106,7 +116,6 @@ public class MapGenerator : MonoBehaviour {
 					}
 				}
 			}
-
 		}
 	}
                  
