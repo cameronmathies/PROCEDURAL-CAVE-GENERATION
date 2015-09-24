@@ -36,6 +36,10 @@ public class MapGenerator : MonoBehaviour {
 			SmothMap();
 
 		}
+
+		MeshGenerator meshGen = GetComponent<MeshGenerator> ();
+		meshGen.GenerateMesh (map, 1);
+
 	}
 
 	void RandomFillMap() {
@@ -63,12 +67,12 @@ public class MapGenerator : MonoBehaviour {
 	{
 		for (int x = 0; x < width; x ++) {
 			for (int y = 0; y < height; y ++) {
-				int neighbourWallTiles = GetSurroundingWallCount (x, y);
+				int neighbourWallTiles = GetSurroundingWallCount(x, y);
 			
 				if (neighbourWallTiles > 4)
-					map [x, y] = 1;
+					map[x, y] = 1;
 				else if (neighbourWallTiles < 4)
-					map [x, y] = 0;
+					map[x, y] = 0;
 			}
 		}
 	}
