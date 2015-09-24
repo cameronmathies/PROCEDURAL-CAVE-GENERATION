@@ -1,10 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\f.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MeshGenerator.cs">
     <Files>
-      <File FileName="Assets\MeshGenerator.cs" Line="41" Column="15" />
-      <File FileName="Assets\MapGenerator.cs" Line="69" Column="9" />
-      <File FileName="Assets\f.cs" Line="1" Column="1" />
+      <File FileName="Assets\MapGenerator.cs" Line="123" Column="6" />
+      <File FileName="Assets\MeshGenerator.cs" Line="35" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
