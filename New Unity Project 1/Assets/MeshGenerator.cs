@@ -71,7 +71,7 @@ public class MeshGenerator : MonoBehaviour {
 	public class Square {
 
 		public ControlNode topLeft, topRight, bottomRight, bottomLeft;
-		public Node centreTop, centreRight, centerBottom, centreLeft;
+		public Node centreTop, centreRight, centreBottom, centreLeft;
 
 		public Square (ControlNode _topLeft, ControlNode _topRight, ControlNode _bottomRight, ControlNode _bottomLeft) {
 			topLeft = _topLeft;
@@ -82,7 +82,7 @@ public class MeshGenerator : MonoBehaviour {
 
 			centreTop = topLeft.right;
 			centreRight = bottomRight.above;
-			centerBottom = bottomLeft.right;
+			centreBottom = bottomLeft.right;
 			centreLeft = _bottomLeft.above;
 
 
