@@ -8,7 +8,11 @@ public class MeshGenerator : MonoBehaviour {
 	public SquareGrid squareGrid;
 	List<Vector3> vertices;
 	List<int> triangles;
-	
+
+
+	Dictionary<int,List<Traiangle>> triangleDictionary = new Dictionary<int, List<triangle>> ();
+
+
 	public void GenerateMesh(int[,] map, float squareSize) {
 		squareGrid = new SquareGrid(map, squareSize);
 		
@@ -36,13 +40,13 @@ public class MeshGenerator : MonoBehaviour {
 			
 			// 1 points:
 		case 1:
-			MeshFromPoints(square.centreBottom, square.bottomLeft, square.centreLeft);
+			MeshFromPoints(square.centreLeft, square.centreBottom, square.bottomLeft);
 			break;
 		case 2:
-			MeshFromPoints(square.centreRight, square.bottomRight, square.centreBottom);
+			MeshFromPoints(square.bottomRight, square.centreBottom, square.centreRight);
 			break;
 		case 4:
-			MeshFromPoints(square.centreTop, square.topRight, square.centreRight);
+			MeshFromPoints(square.topRight, square.centreRight, square.centreTop);
 			break;
 		case 8:
 			MeshFromPoints(square.topLeft, square.centreTop, square.centreLeft);
@@ -115,30 +119,47 @@ public class MeshGenerator : MonoBehaviour {
 		triangles.Add(a.vertexIndex);
 		triangles.Add(b.vertexIndex);
 		triangles.Add(c.vertexIndex);
+
+		Triangle triangle = new Triangle (a.vertexIndex, b.vertexIndex, c.vertexIndex);
+		AddTriangleToDictionary (triangle.vertexIndexA, triangle);
+		AddTriangleToDictionary (triangle.vertexIndexB, triangle);
+		AddTriangleToDictionary (triangle.vertexIndexC, triangle);
 	}
-	
-	void OnDrawGizmos() {
-		/*
-        if (squareGrid != null) {
-            for (int x = 0; x < squareGrid.squares.GetLength(0); x ++) {
-                for (int y = 0; y < squareGrid.squares.GetLength(1); y ++) {
-                    Gizmos.color = (squareGrid.squares[x,y].topLeft.active)?Color.black:Color.white;
-                    Gizmos.DrawCube(squareGrid.squares[x,y].topLeft.position, Vector3.one * .4f);
-                    Gizmos.color = (squareGrid.squares[x,y].topRight.active)?Color.black:Color.white;
-                    Gizmos.DrawCube(squareGrid.squares[x,y].topRight.position, Vector3.one * .4f);
-                    Gizmos.color = (squareGrid.squares[x,y].bottomRight.active)?Color.black:Color.white;
-                    Gizmos.DrawCube(squareGrid.squares[x,y].bottomRight.position, Vector3.one * .4f);
-                    Gizmos.color = (squareGrid.squares[x,y].bottomLeft.active)?Color.black:Color.white;
-                    Gizmos.DrawCube(squareGrid.squares[x,y].bottomLeft.position, Vector3.one * .4f);
-                    Gizmos.color = Color.grey;
-                    Gizmos.DrawCube(squareGrid.squares[x,y].centreTop.position, Vector3.one * .15f);
-                    Gizmos.DrawCube(squareGrid.squares[x,y].centreRight.position, Vector3.one * .15f);
-                    Gizmos.DrawCube(squareGrid.squares[x,y].centreBottom.position, Vector3.one * .15f);
-                    Gizmos.DrawCube(squareGrid.squares[x,y].centreLeft.position, Vector3.one * .15f);
-                }
-            }
-        }
-        */
+
+	void AddTriangleToDictionary(int vertexIndexKey, Triangle triangle) {
+		if (traiangleDictionary.ContainsKey (vertexIndexKey)) {
+			triangleDictionary [vertexIndexKey].Add (triangle);
+		} else {
+			List<Traiangle> triangleList = new List<Traiangle>();
+			triangleList.Add(triangle);
+			triangleDictionary.Add(vertexIndexKey, triangleList);
+		}
+	}
+
+	bool ISOutlineEdge(int vertexA, int vertexB) {
+		List<Traiangle> trianglesContainingVertextexA = triangleDictionary [vertexA];
+		int sharedTriangleCount = 0;
+
+		for (int = 0; i < trianglesContainingVertextexA.Count; if++) {
+			if (trianglesContainingVertexA[i].Contaains(vertexB)){
+
+			}
+		}
+	}
+	struct Traiangle {
+		public int vertexIndexA;
+		public int vertexIndexB;
+		public int vertexIndexC;
+
+		public Traiangle (int a, int b, int c) {
+			vertexIndexA = a;
+			vertexIndexB = b;
+			vertexIndexC = c;
+		}
+
+		public bool Contains(int vertexIndex) {
+			return vertexIndex == vertexIndexA || vertexIndexB || vertexIndexC;
+		}
 	}
 	
 	public class SquareGrid {
