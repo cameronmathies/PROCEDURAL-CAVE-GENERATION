@@ -11,7 +11,8 @@ public class MeshGenerator : MonoBehaviour {
 
 
 	Dictionary<int,List<Traiangle>> triangleDictionary = new Dictionary<int, List<triangle>> ();
-
+	List<List<int>> outlines = new List<List<int>> (); 
+	HashSet<int> cheackedVertices = new HashSet<int> ();
 
 	public void GenerateMesh(int[,] map, float squareSize) {
 		squareGrid = new SquareGrid(map, squareSize);
@@ -136,27 +137,75 @@ public class MeshGenerator : MonoBehaviour {
 		}
 	}
 
-	bool ISOutlineEdge(int vertexA, int vertexB) {
+	void CalculateMeshOutlines () {
+
+		for (int vertexIndex = 0; vertexIndex < vertices.Count; vertexIndex ++) {
+			if (!checkedVertices.Contains(vertexIndex)) {
+				int newOutlineVertex = GetConnectedOutlineVertex(vertexIndex);
+				if (newOutlineVertex != -1) {
+					checkedVertices.Add(vertexIndex);
+
+				}
+			}
+		}
+	}
+
+	int GetConnectedOutlineVertex(int vertexIndex) {
+		List<Triangle> trianglesContainingVertex = triangleDictionary [vertexIndex];
+	}
+
+	bool IsOutlineEdge(int vertexA, int vertexB) {
 		List<Traiangle> trianglesContainingVertextexA = triangleDictionary [vertexA];
 		int sharedTriangleCount = 0;
 
-		for (int = 0; i < trianglesContainingVertextexA.Count; if++) {
-			if (trianglesContainingVertexA[i].Contaains(vertexB)){
+		for (int = 0; i < trianglesContainingVertextex.Count; i++) {
+			Triangle triangle = trianglesContainingVertex[i];
 
+			for (int j = 0; j < 3; j ++) {
+				int vertexB = triangle[j];
+				if (vertexB != vertexIndex) {
+				if (IsOutlineEdge(vertexIndex, vertexB)) {
+					return vertexB;
+					}
+				}
 			}
 		}
+		return -1;
+	}
+
+		for (int = 0; i < trianglesContainingVertextexA.Count; i++) {
+			if (trianglesContainingVertexA[i].Contaains(vertexB)){
+				sharedTriangleCount ++;
+				if (sharedTriangleCount > 1) {
+					break;
+				}
+			}
+		}
+		return sharedTriangleCount == 1;
 	}
 	struct Traiangle {
 		public int vertexIndexA;
 		public int vertexIndexB;
 		public int vertexIndexC;
+		int[] vertices;
 
 		public Traiangle (int a, int b, int c) {
 			vertexIndexA = a;
 			vertexIndexB = b;
 			vertexIndexC = c;
+
+		vertices = new int[3];
+		vertices[0] = a;
+		vertices[1] = b;
+		vertices[2] = c;
 		}
 
+
+	public int this[int i] {
+		get {
+			return vertices[i];
+		}
+	}
 		public bool Contains(int vertexIndex) {
 			return vertexIndex == vertexIndexA || vertexIndexB || vertexIndexC;
 		}
